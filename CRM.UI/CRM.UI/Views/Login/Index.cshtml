@@ -1,0 +1,25 @@
+﻿@model CRM.UI.Models.LoginModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+
+@using (@Html.BeginForm("Login", "Login", FormMethod.Post))
+{
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        @Html.TextBoxFor(t => t.UserName, new { @class = "form-control", placeholder = "Email" })
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        @Html.TextBoxFor(t => t.Password, new { @class = "form-control", placeholder = "Password" })
+    </div>
+    <br />
+    <b style="color:red">@TempData["Hata"]</b>
+    <input type="submit" value="Login" class="btn btn-success" />
+}
+
