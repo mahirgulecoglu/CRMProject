@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Bunlar müşteri siparişlerinin listesi</h2>
+
+@Html.ActionLink("Onayla", "Approve", new { style = "visibility:" + @ViewBag.OnaylaVisibilityText + "" })
+<input type="button" value="Onayla" style="visibility:@ViewBag.OnaylaVisibilityText" />
+
+<input type="button" value="Reddet" style="visibility:@ViewBag.ReddetVisibilityText" />
+
+<input type="button" value="Kargola" style="visibility:@ViewBag.KargolaVisibilityText" />
+
+
+

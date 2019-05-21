@@ -12,6 +12,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{62DA3D97-CC4B-4D76-95D9-1A68F89A6CE7}"
 	ProjectSection(SolutionItems) = preProject
 		DATA.sql = DATA.sql
+		TextFile1.txt = TextFile1.txt
 	EndProjectSection
 EndProject
 Global

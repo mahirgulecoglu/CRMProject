@@ -16,7 +16,7 @@
     </div>
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-        @Html.TextBoxFor(t => t.Password, new { @class = "form-control", placeholder = "Password" })
+        @Html.PasswordFor(t => t.Password, new { @class = "form-control", placeholder = "Password" })
     </div>
     <br />
     <b style="color:red">@TempData["Hata"]</b>
