@@ -19,13 +19,13 @@ namespace CRM.UI.Controllers
             }
             else
             {
-                var customer = LoginAccessBLL.GetCustomers();
                 Employees employee = Session["Employee"] as Employees;
                 if (LoginAccessBLL.UserHasRole(employee.Email, "Admin"))
                 {
                     ViewBag.Edit = "Visible";
                     ViewBag.Delete = "Visible";
                     ViewBag.Detail = "Visible";
+
                 }
                 else if (LoginAccessBLL.UserHasRole(employee.Email, "Manager"))
                 {
@@ -39,6 +39,7 @@ namespace CRM.UI.Controllers
                     ViewBag.Delete = "Hidden";
                     ViewBag.Detail = "Visible";
                 }
+                var customer = LoginAccessBLL.GetCustomers();
                 return View(customer);
             }
 
@@ -68,6 +69,7 @@ namespace CRM.UI.Controllers
             LoginAccessBLL.Update(cust);
             return View();
         }
+
         public ActionResult Delete(int id)
         {
             if (Session["Employee"] == null)
@@ -81,6 +83,17 @@ namespace CRM.UI.Controllers
         [HttpPost]
         public ActionResult Delete(Customers customer)
         {
+            if (Session["Employee"] == null)
+            {
+                return RedirectToAction("Hata", "Home");
+            }
+
+            Employees employee = Session["Employee"] as Employees;
+            if (!LoginAccessBLL.UserHasRole(employee.Email, "Admin"))
+            {
+                return RedirectToAction("Hata", "Home");
+            }
+
             Customers cust = LoginAccessBLL.GetCustomer(customer.CustomerID);
             cust.CustomerID = customer.CustomerID;
             cust.BirthDate = customer.BirthDate;
