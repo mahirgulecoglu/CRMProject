@@ -15,6 +15,9 @@ namespace CRM.DAL
 
         [Required]
         public string Note { get; set; }
+        [Required]
+        [StringLength(10)]
+        public string Status { get; set; }
 
         public virtual Customers Customers { get; set; }
     }

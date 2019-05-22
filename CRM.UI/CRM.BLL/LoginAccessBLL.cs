@@ -9,24 +9,40 @@ namespace CRM.BLL
 {
     public class LoginAccessBLL
     {
+        static Datacontext dba = new Datacontext();
+        public static List<Customers> GetCustomers()
+        {
+            var customer = dba.Customers.ToList();
+            return customer;
+        }
+        public static Customers GetCustomer(int id)
+        {
+            return dba.Customers.FirstOrDefault(x => x.CustomerID == id);
+        }
+        public static void Update(Customers customer)
+        {
+            dba.SaveChanges();
+        }
+        public static void Delete(Customers customer)
+        {
+            dba.Customers.Remove(customer);
+            dba.SaveChanges();
+        }
         public static Employees LoginUser(string username, string password)
         {
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
                 throw new MissingFieldException("kullanıcı adı yada şifreyi boş gönderemezsiniz");
             }
-
-            Datacontext db = new Datacontext();
-            var employee = db.Employees.Where(e => e.Email == username && e.Password == password).FirstOrDefault();
+            
+            var employee = dba.Employees.Where(e => e.Email == username && e.Password == password).FirstOrDefault();
             return employee;
         }
         public static List<Roles> GetUserRoles(string userName)
         {
-            Datacontext db = new Datacontext();
-
-            var result = from e in db.Employees
-                         join er in db.EmployeeRoles on e.EmployeeID equals er.EmployeeID
-                         join r in db.Roles on er.RoleID equals r.RoleID
+            var result = from e in dba.Employees
+                         join er in dba.EmployeeRoles on e.EmployeeID equals er.EmployeeID
+                         join r in dba.Roles on er.RoleID equals r.RoleID
                          where e.Email == userName
                          select r;
 
@@ -35,11 +51,9 @@ namespace CRM.BLL
 
         public static bool UserHasRole(string username, string roleName)
         {
-            Datacontext db = new Datacontext();
-
-            var result = (from e in db.Employees
-                          join er in db.EmployeeRoles on e.EmployeeID equals er.EmployeeID
-                          join r in db.Roles on er.RoleID equals r.RoleID
+            var result = (from e in dba.Employees
+                          join er in dba.EmployeeRoles on e.EmployeeID equals er.EmployeeID
+                          join r in dba.Roles on er.RoleID equals r.RoleID
                           where e.Email == username && r.Name == roleName
                           select r).Any();
 

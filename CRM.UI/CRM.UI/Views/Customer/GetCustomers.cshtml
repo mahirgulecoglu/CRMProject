@@ -1,0 +1,58 @@
+﻿@model IEnumerable<CRM.DAL.Customers>
+
+@{
+    ViewBag.Title = "GetCustomers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>GetCustomers</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BirthDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BirthDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            <a class="btn btn-primary" href="/Customer/Edit/@item.CustomerID" style="visibility:@ViewBag.Edit">Edit</a>
+            <a class="btn btn-danger" href="/Customer/Delete/@item.CustomerID" style="visibility:@ViewBag.Delete">Delete</a>
+            <a class="btn btn-success" href="/Customer/Detail/@item.CustomerID" style="visibility:@ViewBag.Detail">Details</a>
+        </td>
+    </tr>
+}
+
+</table>
