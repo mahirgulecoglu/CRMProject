@@ -28,6 +28,11 @@ namespace CRM.BLL
             dba.Customers.Remove(customer);
             dba.SaveChanges();
         }
+        public static void Add(Customers customer)
+        {
+            dba.Customers.Add(customer);
+            dba.SaveChanges();
+        }
         public static Employees LoginUser(string username, string password)
         {
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))

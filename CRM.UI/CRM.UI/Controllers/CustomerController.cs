@@ -113,6 +113,39 @@ namespace CRM.UI.Controllers
             var customer = LoginAccessBLL.GetCustomer(id);
             return View(customer);
         }
+        public ActionResult Add(int id)
+        {
+            if (Session["Employee"] == null)
+            {
+                return RedirectToAction("Hata", "Home");
+            }
+            var customer = LoginAccessBLL.GetCustomer(id);
+            return View(customer);
+        }
+
+        [HttpPost]
+        public ActionResult Add(Customers customer)
+        {
+            if (Session["Employee"] == null)
+            {
+                return RedirectToAction("Hata", "Home");
+            }
+
+            Employees employee = Session["Employee"] as Employees;
+            if (!LoginAccessBLL.UserHasRole(employee.Email, "Admin"))
+            {
+                return RedirectToAction("Hata", "Home");
+            }
+            Customers cust = LoginAccessBLL.GetCustomer(customer.CustomerID);
+            cust.CustomerID = customer.CustomerID;
+            cust.BirthDate = customer.BirthDate;
+            cust.FirstName = customer.FirstName;
+            cust.Phone = customer.Phone;
+            cust.Email = customer.Email;
+            cust.LastName = customer.LastName;
+            LoginAccessBLL.Add(cust);
+            return View();
+        }
 
     }
 }
